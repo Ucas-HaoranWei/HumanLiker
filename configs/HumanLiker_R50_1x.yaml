@@ -1,0 +1,24 @@
+_BASE_: "Base-HumanLiker.yaml"
+MODEL:
+  HUMANLIKER:
+    USE_DEFORMABLE: True
+    PRE_NMS_TOPK_TEST: 2000
+    POST_NMS_TOPK_TEST: 1000
+INPUT:
+  MIN_SIZE_TRAIN: (480, 960)
+  MIN_SIZE_TRAIN_SAMPLING: "range"
+
+
+
+DEBUG: False
+
+DATASETS:
+  TEST: ("coco_2017_val",)
+#  TEST: ("coco_2017_test-dev",)
+#TEST:
+#  AUG:
+#    ENABLED: True
+#    FLIP: True
+#    MAX_SIZE: 640
+#    MIN_SIZES: (640,)
+

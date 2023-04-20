@@ -1,0 +1,7 @@
+python train_net_transformer.py --num-gpus 4 --config-file configs/HumanLiker_SwinT_T_1x.yaml
+
+python demo.py --config-file configs/HumanLiker_SwinT_T_1x.yaml --input visualization/inputs/ --output visualization/outputs/ --opts MODEL.WEIGHTS output/HumanLiker/HumanLiker_SwinT_T_1x/model_final.pth
+
+
+python test.py --num-gpus 4 --config-file configs/HumanLiker_SwinT_T_1x.yaml  --eval-only MODEL.WEIGHTS output/HumanLiker/HumanLiker_SwinT_T_1x/model_final.pth
+

@@ -1,0 +1,75 @@
+MODEL:
+  META_ARCHITECTURE: "GeneralizedRCNN"
+  PROPOSAL_GENERATOR:
+    NAME: "HumanLiker"
+  PIXEL_MEAN: [ 123.675, 116.280, 103.530 ]
+  PIXEL_STD: [ 58.395, 57.12, 57.375 ]
+  WEIGHTS: "pretrain/swin_tiny_patch4_window7_224_d2.pth"
+  MASK_ON: False
+  BACKBONE:
+    NAME: "build_swint_fpn_backbone"
+  SWINT:
+    OUT_FEATURES: ["stage2", "stage3", "stage4", "stage5"]
+  FPN:
+    IN_FEATURES: ["stage2", "stage3", "stage4", "stage5"]
+  ROI_HEADS:
+    NAME: CustomCascadeROIHeads
+    IN_FEATURES: ["p3", "p4", "p5", "p6", "p7"]
+    IOU_THRESHOLDS: [0.6]
+    NMS_THRESH_TEST: 0.7
+  ROI_BOX_CASCADE_HEAD:
+    IOUS: [ 0.6, 0.7, 0.8 ]
+  ROI_BOX_HEAD:
+    NAME: "FastRCNNConvFCHead"
+    NUM_FC: 2
+    POOLER_RESOLUTION: 7
+    CLS_AGNOSTIC_BBOX_REG: True
+    MULT_PROPOSAL_SCORE: True
+  HUMANLIKER:
+    REG_WEIGHT: 1.
+    USE_DEFORMABLE: True
+    NOT_NORM_REG: True
+#    ONLY_PROPOSAL: True
+#    WITH_AGN_HM: True
+    INFERENCE_TH: 0.0001
+    PRE_NMS_TOPK_TRAIN: 4000
+    POST_NMS_TOPK_TRAIN: 2000
+#    PRE_NMS_TOPK_TEST: 1000
+#    POST_NMS_TOPK_TEST: 256
+    PRE_NMS_TOPK_TEST: 2000
+    POST_NMS_TOPK_TEST: 1000
+    NMS_TH_TRAIN: 0.9
+    NMS_TH_TEST: 0.9
+    POS_WEIGHT: 0.5
+    NEG_WEIGHT: 0.5
+    IGNORE_HIGH_FP: 0.85
+DATASETS:
+  TRAIN: ("coco_2017_train",)
+  TEST: ("coco_2017_val",)
+INPUT:
+  FORMAT: RGB
+  MIN_SIZE_TRAIN: (480, 960)
+  MIN_SIZE_TRAIN_SAMPLING: "range"
+
+SOLVER:
+  IMS_PER_BATCH: 8  # 1x  default 16
+  STEPS: (120000, 160000)
+  MAX_ITER: 180000
+  CHECKPOINT_PERIOD: 30000
+  WEIGHT_DECAY: 0.05
+  BASE_LR: 0.00005  # default 0.0001
+#  AMP:
+#    ENABLED: True
+
+DEBUG: False # debug demo
+
+#TEST: ("coco_2017_test-dev",)
+#TEST:
+#  AUG:
+#    ENABLED: True
+#    FLIP: True
+#    MAX_SIZE: 640
+#    MIN_SIZES: (640,)
+
+OUTPUT_DIR: "./output/HumanLiker/auto"
+

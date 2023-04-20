@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="675a5c07-fcea-4516-9424-014ee581599f" name="whr">
+        <fileTransfer rootFolder="/mnt/nvme0n1p1/whr/Project/code/HumanLiker-master" accessType="SFTP" host="whrserver.dongtaiyuming.net" port="52682" sshConfigId="f1ddc4ce-e051-4519-b8f2-f85cdb0fd1a8" sshConfig="whr@whrserver.dongtaiyuming.net:52682 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
